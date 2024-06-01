@@ -4,7 +4,7 @@ on:
     - cron: "15 0 * * *"
   push:
     branches:
-      - github_ci_sync_gitee_action
+      - main
 jobs:
   sync_with_gitee:
     runs-on: ubuntu-latest
