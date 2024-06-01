@@ -1,0 +1,33 @@
+on:
+  schedule:
+    # Run once a day, shortly after midnight UTC
+    - cron: "15 0 * * *"
+  push:
+    branches:
+      - github_ci_sync_gitee_action
+jobs:
+  sync_with_gitee:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout
+        with:
+          repository: openharmony-rs/openharmony-docs
+          fetch-depth: '0'
+          lfs: true
+          token: ${{secrets.OPENHARMONY_DOCS_CI_PUSH_TOKEN}}
+          path: docs
+      - name: Add remote
+        run: git remote add gitee https://gitee.com/openharmony/docs.git
+      - name: Update locally
+        run: | 
+          git fetch gitee
+          git fetch --tags
+      - name: Push
+        run: git push origin +refs/remotes/gitee/*:refs/heads/* +refs/tags/*:refs/tags/*
+        working-directory: docs
+      - name: Git lfs
+        run: |
+            git lfs fetch gitee --all
+            git lfs push origin --all
+          
