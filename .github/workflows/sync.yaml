@@ -18,19 +18,19 @@ jobs:
           token: ${{secrets.OPENHARMONY_DOCS_CI_PUSH_TOKEN}}
           path: docs
       - name: Add remote
-        run: git remote add gitee https://gitee.com/openharmony/docs.git
+        run: git remote add gitcode https://gitcode.com/openharmony/docs.git
         working-directory: docs
       - name: Update locally
         run: | 
-          git fetch gitee
+          git fetch gitcode
           git fetch --tags
         working-directory: docs
       - name: Push
-        run: git push origin +refs/remotes/gitee/*:refs/heads/* +refs/tags/*:refs/tags/*
+        run: git push origin +refs/remotes/gitcode/*:refs/heads/* +refs/tags/*:refs/tags/*
         working-directory: docs
       - name: Git lfs
         run: |
-            git lfs fetch gitee --all
+            git lfs fetch gitcode --all
             git lfs push origin --all
         working-directory: docs
           
