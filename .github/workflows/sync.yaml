@@ -5,11 +5,12 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 jobs:
   sync_with_gitee:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         name: Checkout
         with:
           repository: openharmony-rs/openharmony-docs
